@@ -1,1 +1,849 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>보컬 믹싱 커미션 안내</title>
+  <style>
+    :root {
+      --bg: #f5f6f5;
+      --card: #ffffff;
+      --main: #3c8c61;
+      --main-dark: #2d6848;
+      --sub: #5f6761;
+      --text: #202421;
+      --muted: #6f7771;
+      --line: #d9dedb;
+      --soft: #edf4ef;
+      --green: #e3f3e8;
+      --green-text: #2d6848;
+      --yellow: #f1f2ef;
+      --yellow-text: #4c544e;
+      --gray: #f0f1ef;
+      --shadow: 0 14px 38px rgba(31, 37, 33, 0.08);
+    }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(60, 140, 97, 0.08), transparent 34%),
+        linear-gradient(180deg, #f5f6f5 0%, #ffffff 100%);
+      color: var(--text);
+      line-height: 1.68;
+      word-break: keep-all;
+    }
+
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 34px 24px;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(245,246,245,0.94)),
+        linear-gradient(135deg, #f0f2f0, #ffffff);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(60, 140, 97, 0.09);
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 160px;
+      height: 160px;
+      right: -60px;
+      top: -60px;
+    }
+
+    .hero::after {
+      width: 110px;
+      height: 110px;
+      left: -36px;
+      bottom: -42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--main-dark);
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(31, 37, 33, 0.06);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 6vw, 42px);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .hero-desc {
+      max-width: 600px;
+      margin: 14px auto 0;
+      color: var(--sub);
+      font-size: 15px;
+    }
+
+    .hero-alert {
+      margin: 20px auto 0;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--main-dark);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mini-card {
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(31, 37, 33, 0.04);
+    }
+
+    .mini-card strong {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .mini-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--main-dark);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .notice-card {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 28px rgba(31, 37, 33, 0.04);
+    }
+
+    .notice-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .notice-title h2 {
+      margin: 0;
+      font-size: 19px;
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--main-dark);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .period-box {
+      margin-top: 10px;
+      padding: 14px;
+      border-radius: 18px;
+      background: #f7f8f7;
+      color: var(--sub);
+      font-size: 14px;
+    }
+
+    .period-box strong {
+      color: var(--main-dark);
+    }
+
+    .tabs {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 22px rgba(31, 37, 33, 0.04);
+    }
+
+    .tab-button {
+      border: 0;
+      padding: 11px 8px;
+      border-radius: 16px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .tab-button:hover {
+      background: var(--soft);
+      color: var(--main-dark);
+    }
+
+    .tab-button.active {
+      background: var(--main);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(60, 140, 97, 0.2);
+    }
+
+    .panel {
+      display: none;
+      margin-top: 18px;
+      animation: fadeUp 0.24s ease both;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-card {
+      padding: 22px;
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 28px rgba(31, 37, 33, 0.04);
+    }
+
+    .section-card + .section-card {
+      margin-top: 14px;
+    }
+
+    h2, h3 {
+      letter-spacing: -0.035em;
+    }
+
+    .section-card h2 {
+      margin: 0 0 14px;
+      color: var(--main-dark);
+      font-size: 22px;
+    }
+
+    .section-card h3 {
+      margin: 18px 0 8px;
+      color: var(--text);
+      font-size: 17px;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .callout {
+      margin: 12px 0;
+      padding: 15px;
+      border-radius: 18px;
+      background: var(--soft);
+      border: 1px solid #cdded2;
+      color: var(--main-dark);
+      font-weight: 700;
+    }
+
+    .warning {
+      background: var(--yellow);
+      color: var(--yellow-text);
+      border-color: #dcded8;
+    }
+
+    .ok {
+      background: var(--green);
+      color: var(--green-text);
+      border-color: #c6dfcd;
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .type-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 22px rgba(31, 37, 33, 0.04);
+    }
+
+    .type-name {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .type-name strong {
+      color: var(--main-dark);
+      font-size: 20px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .type-card ul,
+    .simple-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    .timeline {
+      counter-reset: step;
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .step {
+      position: relative;
+      padding: 15px 15px 15px 54px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--main);
+      color: #fff;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .step strong {
+      display: block;
+      color: var(--text);
+    }
+
+    .step span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    details + details {
+      margin-top: 10px;
+    }
+
+    summary {
+      padding: 15px 16px;
+      cursor: pointer;
+      font-weight: 900;
+      color: var(--main-dark);
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      float: right;
+      color: var(--main);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    .detail-body {
+      padding: 0 16px 16px;
+      color: var(--sub);
+      font-size: 14px;
+    }
+
+    .form-box {
+      position: relative;
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 20px;
+      background: #f7f8f7;
+      border: 1px dashed var(--main);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      white-space: pre-wrap;
+      color: #3f4742;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .copy-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--main);
+      color: #fff;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(60, 140, 97, 0.2);
+    }
+
+    .copy-button:active {
+      transform: translateY(1px);
+    }
+
+    .footer {
+      margin: 18px 0 6px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero {
+        padding: 28px 18px;
+        border-radius: 26px;
+      }
+
+      .status-grid,
+      .type-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px;
+        padding: 8px;
+      }
+
+      .tab-button {
+        padding: 10px 6px;
+        font-size: 12px;
+      }
+
+      .section-card {
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .notice-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">🎧 Vocal Mixing Commission</div>
+      <h1>보컬 믹싱 커미션</h1>
+      <p class="hero-desc">
+        보컬 에디팅, 믹싱, 마스터링 작업을 진행합니다.<br />
+        녹음본 상태, 트랙 수, 인원 수, 요청 효과에 따라 견적이 달라집니다.
+      </p>
+      <div class="hero-alert">※ 결제 전 반드시 견적 상담부터 받아주세요. ※</div>
+    </section>
+
+    <section class="status-grid" aria-label="핵심 안내">
+      <div class="mini-card">
+        <strong>매달 실제 작업 가능 기간</strong>
+        <span>16일~말일</span>
+      </div>
+      <div class="mini-card">
+        <strong>작업 시작일 기준 평균 기간</strong>
+        <span>7~14일</span>
+      </div>
+      <div class="mini-card">
+        <strong>기본 컨펌</strong>
+        <span>1회 포함</span>
+      </div>
+    </section>
+
+    <section class="notice-card">
+      <div class="notice-title">
+        <h2>현재 작업 가능 기간 안내</h2>
+        <span class="badge" id="periodBadge">일정 확인 중</span>
+      </div>
+      <div class="period-box" id="periodText">
+        매달 1일~15일은 견적 상담 및 예약이 가능하며, 실제 작업은 16일부터 말일까지 순차적으로 진행됩니다.
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="상세 안내 탭">
+      <button class="tab-button active" data-tab="guide">안내</button>
+      <button class="tab-button" data-tab="types">타입/가격</button>
+      <button class="tab-button" data-tab="process">작업과정</button>
+      <button class="tab-button" data-tab="files">파일/수정</button>
+      <button class="tab-button" data-tab="policy">약관/환불</button>
+      <button class="tab-button" data-tab="form">신청양식</button>
+    </nav>
+
+    <section class="panel active" id="guide">
+      <div class="section-card">
+        <h2>신청 전 안내</h2>
+        <div class="callout warning">
+          상담 없이 결제하신 경우 작업 진행이 지연될 수 있습니다.
+        </div>
+        <p>
+          작업은 전달해주신 녹음본 상태, 트랙 수, 인원 수, 요청 효과에 따라 견적이 달라집니다.<br />
+          원하시는 방향이 있다면 견적 상담 과정에서 최대한 자세히 말씀해주세요.
+        </p>
+        <h3>작업 가능 기간</h3>
+        <p>
+          개인 일정상 작업은 매달 <strong>16일부터 말일까지만</strong> 진행합니다.<br />
+          1일~15일 사이에도 견적 상담 및 예약은 가능하지만, 실제 작업은 해당 월 16일부터 순차적으로 진행됩니다.
+        </p>
+        <div class="callout ok">
+          예시: 5월 3일 결제 및 자료 전달 → 5월 16일부터 작업 시작<br />
+          예시: 5월 18일 결제 및 자료 전달 → 일정 확인 후 순차 작업 진행
+        </div>
+        <p class="muted">
+          작업 순서는 결제 및 자료 전달이 완료된 순서를 기준으로 합니다.<br />작업 가능 기간 내 신청이 많을 경우, 다음 작업 가능 기간으로 일정이 넘어갈 수 있습니다.
+        </p>
+      </div>
+
+      <div class="section-card">
+        <h2>기본 구성</h2>
+        <ul class="simple-list">
+          <li>기본 구성은 <strong>MR 1트랙 + 메인 보컬 1트랙</strong> 기준입니다.</li>
+          <li>더블링, 화음, 애드립, 코러스, 대사 등은 추가 보컬 트랙으로 계산됩니다.</li>
+          <li>인원 추가 비용에는 추가 인원 1인당 메인 보컬 트랙 1개가 포함됩니다.</li>
+          <li>추가 인원의 화음, 더블링, 애드립, 코러스 등은 별도 추가 트랙으로 계산됩니다.</li>
+          <li>빠른 마감은 작업 가능 기간 내 일정이 맞을 경우에만 진행 가능하며, 별도 추가금이 발생합니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel" id="types">
+      <div class="section-card">
+        <h2>타입 및 가격</h2>
+        <div class="type-grid">
+          <article class="type-card">
+            <div class="type-name"><strong>A타입</strong><span class="badge">믹싱 중심</span></div>
+            <div class="price">30,000원</div>
+            <p class="muted">음정, 박자 보정이 포함되지 않은 타입입니다.<br />녹음본의 음정과 박자가 안정적이거나 에디팅을 직접 할 수 있는 분께 추천합니다.</p>
+            <ul>
+              <li>인원 추가: 1인당 30,000원</li>
+              <li>트랙 추가: 4트랙당 10,000원</li>
+              <li>완성 후 효과 추가: 건당 10,000원~</li>
+              <li>추가 컨펌: 회당 5,000원</li>
+            </ul>
+          </article>
+
+          <article class="type-card">
+            <div class="type-name"><strong>B타입</strong><span class="badge">추천</span></div>
+            <div class="price">60,000원</div>
+            <p class="muted">음정, 박자 보정이 포함된 타입입니다.<br />보다 완성도 있는 작업물을 원하시는 분께 추천합니다.</p>
+            <ul>
+              <li>인원 추가: 1인당 50,000원</li>
+              <li>트랙 추가: 1트랙당 10,000원</li>
+              <li>완성 후 효과 추가: 건당 10,000원~</li>
+              <li>추가 컨펌: 회당 10,000원</li>
+            </ul>
+          </article>
+
+          <article class="type-card">
+            <div class="type-name"><strong>C타입</strong><span class="badge">1분 미만</span></div>
+            <div class="price">20,000원</div>
+            <p class="muted">1절치기, 쇼츠, 짧은 커버, 샘플용 작업물에 추천합니다.<br />1분 이상 작업은 A타입 또는 B타입으로 신청해주세요.</p>
+            <ul>
+              <li>인원 추가: 1인당 30,000원</li>
+              <li>트랙 추가: 1트랙당 5,000원</li>
+              <li>완성 후 효과 추가: 건당 3,000원~</li>
+              <li>추가 컨펌: 회당 3,000원</li>
+            </ul>
+          </article>
+
+          <article class="type-card">
+            <div class="type-name"><strong>전력 타입</strong><span class="badge">프리미엄</span></div>
+            <div class="price">100,000원~</div>
+            <p class="muted">온 힘을 다해 작업합니다.</p>
+            <ul>
+              <li>인원 추가: 1인당 100,000원</li>
+              <li>트랙 추가: 상담 후 견적 확정</li>
+              <li>완성 후 효과 추가: 상담 후 견적 확정</li>
+              <li>추가 컨펌: 무료</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>추가금 안내</h2>
+        <p>아래 항목은 상담 후 추가금이 발생할 수 있습니다.</p>
+        <ul class="simple-list">
+          <li>과도한 노이즈 제거가 필요한 경우</li>
+          <li>특수 효과가 많은 경우</li>
+          <li>빠른 마감이 필요한 경우</li>
+          <li>곡의 길이가 5분을 넘는 경우</li>
+          <li>작업 중 방향이 크게 변경되는 경우</li>
+          <li>견적 상담 당시 언급되지 않은 요청이 추가되는 경우</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel" id="process">
+      <div class="section-card">
+        <h2>작업 과정</h2>
+        <div class="timeline">
+          <div class="step"><strong>파일 확인 및 견적 상담</strong><span>녹음본 상태, 트랙 수, 요청 효과를 확인합니다.</span></div>
+          <div class="step"><strong>견적 확정 후 결제 및 예약 확정</strong><span>결제 및 자료 전달이 완료된 순서 기준으로 작업 순서가 배정됩니다.</span></div>
+          <div class="step"><strong>작업 가능 기간 내 순차 작업 시작</strong><span>작업은 매달 16일부터 말일까지 진행됩니다.</span></div>
+          <div class="step"><strong>합본 전달</strong><span>기본 볼륨 조절 및 간단한 밸런스 확인용 파일입니다.</span></div>
+          <div class="step"><strong>박자 보정본 전달</strong><span>박자 보정 확인용 파일입니다.</span></div>
+          <div class="step"><strong>음정 및 박자 보정본 전달</strong><span>음정 및 박자 보정 확인용 파일입니다.</span></div>
+          <div class="step"><strong>최종 믹싱/마스터링 작업본 전달</strong><span>최종 방향 확인을 위한 작업본입니다.</span></div>
+          <div class="step"><strong>컨펌 및 수정</strong><span>기본 컨펌 1회가 포함됩니다.</span></div>
+          <div class="step"><strong>최종본 전달</strong><span>최종 파일 전달 후 작업 완료로 간주됩니다.</span></div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>진행 단계 관련 안내</h2>
+        <p>각 단계에 착수한 시점부터 해당 단계의 작업이 진행된 것으로 간주됩니다.</p>
+        <p>A타입처럼 음정/박자 보정이 포함되지 않은 작업의 경우, 해당하지 않는 단계는 생략됩니다.</p>
+        <div class="callout warning">
+          작업 중간 파일은 진행 상황 확인 및 컨펌을 위한 파일이며, 최종본이 아닙니다.<br />중간 파일의 무단 사용, 업로드, 배포는 불가능합니다.
+        </div>
+        <p>각 단계 확인 후 다음 단계로 넘어간 경우, 이전 단계로 돌아가는 대규모 수정은 추가금이 발생할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="files">
+      <div class="section-card">
+        <h2>파일 전달 안내</h2>
+        <div class="callout ok">보컬 파일은 반드시 wav 또는 flac 형식으로 전달해주세요.</div>
+        <p>
+          mp3, m4a 등 압축 형식의 음원 소스는 작업 과정에서 무조건 음원 손실이 발생합니다.<br />
+          이로 인한 음질 저하, 노이즈, 깨짐, 보정 오류는 작업자가 책임지기 어렵습니다.
+        </p>
+        <p>
+          압축 파일만 전달하실 경우 작업 퀄리티를 보장하기 어려우며, 필요 시 wav/flac 파일로 재전달을 요청드릴 수 있습니다.<br />
+          파일 재전달로 인해 발생하는 작업 지연은 작업 기간에 포함되지 않습니다.
+        </p>
+        <h3>파일명 예시</h3>
+        <div class="form-box">메인보컬.wav
+화음1.wav
+더블링.wav
+애드립.wav</div>
+      </div>
+
+      <div class="section-card">
+        <h2>수정 요청 안내</h2>
+        <p>원하는 효과가 있다면 견적 상담 과정에서 반드시 말씀해주세요.<br />견적 상담 과정에서 합의되지 않은 효과는 추가금이 발생합니다.</p>
+        <p>작업본 확인 후 수정 요청 시에는 <strong>분, 초, 가사</strong>를 포함해서 말씀해주세요.</p>
+        <div class="callout warning">X “1절 일은 일대로 부분이 이상해요.”</div>
+        <div class="callout ok">O “0:15 ‘일은 일대로’ 부분 음정이 어색해요.”<br />O “1:02 ‘사랑해’ 뒤에 딜레이를 조금 더 넣고 싶어요.”</div>
+        <p>두루뭉실한 수정 요청은 확인이 어렵기 때문에 작업이 지연될 수 있습니다.</p>
+        <p>작업 완료 후 요청하시는 신규 효과, 방향 변경, 추가 보정은 수정이 아닌 추가 작업으로 계산됩니다.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="policy">
+      <div class="section-card">
+        <h2>샘플 사용 안내</h2>
+        <p>완성된 작업물은 커미션 샘플 및 포트폴리오로 사용될 수 있습니다.</p>
+        <p>비공개를 원하실 경우 견적 상담 과정에서 미리 말씀해주세요.<br />비공개 요청 시 추가금이 발생할 수 있습니다.</p>
+      </div>
+
+      <div class="section-card">
+        <h2>환불 안내</h2>
+        <p>환불은 작업 진행도에 따라 차등 적용됩니다.<br />작업 진행도는 실제 작업 중인 파일 및 작업 상태를 기준으로 판단합니다.</p>
+        <details open>
+          <summary>환불 기준 보기</summary>
+          <div class="detail-body">
+            <ul>
+              <li>작업 시작 전: 전액 환불</li>
+              <li>합본 작업 진행 중: 80% 환불</li>
+              <li>합본 작업 완료 후: 50% 환불</li>
+              <li>박자 보정 작업 진행 중: 30% 환불</li>
+              <li>음정 및 박자 보정 작업 진행 중: 10% 환불</li>
+              <li>최종 믹싱/마스터링 작업 진행 후: 5% 환불</li>
+              <li>최종본 전달 후: 환불 불가</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>추가 안내</summary>
+          <div class="detail-body">
+            <p>A타입처럼 음정/박자 보정이 포함되지 않은 작업의 경우, 해당하지 않는 단계는 제외하고 실제 진행된 작업물 기준으로 환불 금액이 책정됩니다.</p>
+            <p>최종본 전달 이후에는 작업 완료로 간주되며 환불이 불가능합니다.</p>
+            <p>단순 변심, 신청자 측 파일 문제, 사전에 고지되지 않은 요청사항, 압축 파일 전달로 인한 퀄리티 저하 등은 환불 사유로 인정되지 않습니다.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="panel" id="form">
+      <div class="section-card">
+        <h2>신청 양식</h2>
+        <p class="muted">아래 양식을 복사해 견적 상담 시 작성해주세요.<br />희망 마감일은 작업 가능 기간 및 일정에 따라 조율될 수 있습니다.</p>
+        <div class="form-box" id="applicationForm">닉네임:
+신청 타입:
+견적 상담을 위한 음원 파일:
+원곡 링크:
+요청사항:
+희망 마감일:
+참고하고 싶은 믹싱 방향 또는 레퍼런스:
+비공개 요청 여부:</div>
+        <button class="copy-button" type="button" id="copyButton">신청 양식 복사하기</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Vocal Mixing Commission Guide · iframe page sample
+    </footer>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-button');
+    const panels = document.querySelectorAll('.panel');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.tab;
+
+        buttons.forEach((item) => item.classList.remove('active'));
+        panels.forEach((panel) => panel.classList.remove('active'));
+
+        button.classList.add('active');
+        document.getElementById(target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    const periodBadge = document.getElementById('periodBadge');
+    const periodText = document.getElementById('periodText');
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const day = now.getDate();
+    const lastDate = new Date(year, month + 1, 0).getDate();
+    const monthLabel = `${month + 1}월`;
+
+    if (day >= 16 && day <= lastDate) {
+      periodBadge.textContent = '현재 작업 가능 기간';
+      periodText.innerHTML = `<strong>${monthLabel} 16일~${lastDate}일</strong> 작업 가능 기간입니다.<br />결제 및 자료 전달이 완료된 순서대로 순차 작업이 진행됩니다.`;
+    } else {
+      periodBadge.textContent = '상담/예약 가능';
+      periodText.innerHTML = `현재는 견적 상담 및 예약이 가능합니다.<br />실제 작업은 <strong>${monthLabel} 16일</strong>부터 결제 및 자료 전달 완료 순서대로 진행됩니다.`;
+    }
+
+    const copyButton = document.getElementById('copyButton');
+    const applicationForm = document.getElementById('applicationForm');
+
+    copyButton.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(applicationForm.innerText);
+        copyButton.textContent = '복사 완료!';
+        setTimeout(() => copyButton.textContent = '신청 양식 복사하기', 1600);
+      } catch (error) {
+        copyButton.textContent = '직접 드래그해서 복사해주세요';
+        setTimeout(() => copyButton.textContent = '신청 양식 복사하기', 2000);
+      }
+    });
+  </script>
+</body>
+</html>
