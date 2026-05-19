@@ -716,7 +716,6 @@
           <span class="legend-item"><span class="legend-dot"></span>상담/예약</span>
           <span class="legend-item"><span class="legend-dot work"></span>작업 가능</span>
           <span class="legend-item"><span class="legend-dot today"></span>오늘</span>
-          <span class="legend-item">※ 시트에 적은 일정은 달력에 우선 표시됩니다.</span>
         </div>
       </div>
     </section>
@@ -943,7 +942,7 @@
     </section>
 
     <footer class="footer">
-      Vocal Mixing Commission Guide · iframe page sample
+      BEKAIN Vocal Mixing Commission
     </footer>
   </main>
 
@@ -994,10 +993,10 @@
       예: 19일 시작 → "2026-05-19"
     */
     const CUSTOM_SCHEDULE = {
-      "2026-05-21": { status: "작업", memo: "작업 시작" },
-      "2026-05-22": { status: "휴무", memo: "휴무" },
-      "2026-05-28": { status: "휴무", memo: "휴무" },
-      "2026-05-29": { status: "휴무", memo: "휴무" }
+      "2026-05-16": { status: "작업", memo: "작업 시작" },
+      "2026-05-18": { status: "예약", memo: "예약" },
+      "2026-05-21": { status: "마감", memo: "마감" },
+      "2026-05-25": { status: "휴무", memo: "휴무" }
     };
 
     function getDateKey(targetYear, targetMonth, targetDate) {
