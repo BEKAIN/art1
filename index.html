@@ -93,7 +93,7 @@
       border-radius: 999px;
       background: var(--soft);
       color: var(--main-dark);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       box-shadow: 0 8px 18px rgba(31, 37, 33, 0.06);
     }
@@ -203,6 +203,164 @@
 
     .period-box strong {
       color: var(--main-dark);
+    }
+
+    .reservation-card {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+    }
+
+    .reservation-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .reservation-head h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 17px;
+      letter-spacing: -0.03em;
+    }
+
+    .reservation-head span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .reservation-list {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 0 0 8px;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .reservation-list::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .reservation-list::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: #cfd5d1;
+    }
+
+    .reservation-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .reservation-item {
+      flex: 0 0 110px;
+      min-height: 78px;
+      padding: 8px;
+      border-radius: 14px;
+      background: #f7f8f7;
+      border: 1px solid #e6e9e6;
+      scroll-snap-align: start;
+      text-align: left;
+    }
+
+    .reservation-item.confirmed-reservation {
+      background: #f6fbf7;
+      border-color: #dceee2;
+    }
+
+    .reservation-item.active-reservation {
+      background: #f6fbf7;
+      border-color: var(--main);
+      box-shadow:
+        inset 0 0 0 1px var(--main),
+        0 6px 14px rgba(60, 140, 97, 0.10);
+    }
+
+    .reservation-top {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+
+    .reservation-number {
+      width: 24px;
+      height: 24px;
+      flex: 0 0 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--main-dark);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .reservation-type {
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .reservation-main {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 3px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .reservation-note {
+      display: none;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 5px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .status-pill.done {
+      background: var(--green);
+      color: var(--green-text);
+    }
+
+    .status-pill.partial {
+      background: #edf0ed;
+      color: #3f4742;
+    }
+
+    .status-pill.active {
+      background: #d98b3a;
+      color: #ffffff;
+    }
+
+    .status-pill.wait {
+      background: #f1f2ef;
+      color: var(--muted);
+      border: 1px dashed #cfd5d1;
+    }
+
+    .reservation-caption {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.55;
     }
 
     .calendar-card {
@@ -706,6 +864,18 @@
       <div class="period-box" id="periodText">
         매달 1일~15일은 견적 상담 및 예약이 가능하며, 실제 작업은 16일부터 말일까지 순차적으로 진행됩니다.
       </div>
+
+      <div class="reservation-card">
+        <div class="reservation-head">
+          <h3>작업 예약 현황</h3>
+          <span>파일 전달 및 입금 확인 순서 기준</span>
+        </div>
+        <div class="reservation-list" id="reservationList"></div>
+        <p class="reservation-caption">
+          예약 순서는 파일 전달 및 입금 확인 상태에 따라 조정될 수 있습니다.
+        </p>
+      </div>
+
       <div class="calendar-card">
         <div class="calendar-head">
           <strong id="calendarMonth">이번 달 일정</strong>
@@ -1006,6 +1176,51 @@
       "2026-05-31": { status: "예약", memo: "전력 타입" }
     };
 
+    /*
+      예약 현황 수정 구역
+      --------------------------------
+      아래 RESERVATIONS만 수정하면 됩니다.
+      위에서부터 1번, 2번, 3번 순서로 표시됩니다.
+    */
+    const RESERVATIONS = [
+      {
+        type: "전력 타입",
+        file: "작업중",
+        payment: "완납",
+        note: "S"
+      },
+      {
+        type: "전력 타입",
+        file: "파일 확인",
+        payment: "완납",
+        note: "S"
+      },
+      {
+        type: "전력 타입",
+        file: "파일 확인",
+        payment: "분할",
+        note: "C"
+      },
+      {
+        type: "타입 미정",
+        file: "파일 대기",
+        payment: "미납",
+        note: "M"
+      },
+      {
+        type: "타입 미정",
+        file: "파일 대기",
+        payment: "미납",
+        note: "M"
+      },
+      {
+        type: "타입 미정",
+        file: "파일 대기",
+        payment: "미납",
+        note: "M"
+      }
+    ];
+
     function getDateKey(targetYear, targetMonth, targetDate) {
       return `${targetYear}-${String(targetMonth + 1).padStart(2, '0')}-${String(targetDate).padStart(2, '0')}`;
     }
@@ -1049,6 +1264,69 @@
       return isWorkDay ? 'work-day' : 'consult-day';
     }
 
+    function getPillClass(value) {
+      const text = String(value || '');
+
+      if (text.includes('작업중')) {
+        return 'active';
+      }
+
+      if (text.includes('완납') || text.includes('파일 확인') || text.includes('파일 수령') || text.includes('파일 받음') || text.includes('확정')) {
+        return 'done';
+      }
+
+      if (text.includes('분할')) {
+        return 'partial';
+      }
+
+      return 'wait';
+    }
+
+    function renderReservations() {
+      const reservationList = document.getElementById('reservationList');
+      if (!reservationList) return;
+
+      reservationList.innerHTML = '';
+
+      RESERVATIONS.forEach((item, index) => {
+        const reservationItem = document.createElement('div');
+        const number = document.createElement('div');
+        const top = document.createElement('div');
+        const type = document.createElement('div');
+        const main = document.createElement('div');
+        const file = document.createElement('span');
+        const payment = document.createElement('span');
+        const note = document.createElement('div');
+
+        const isActive = item.file.includes('작업중');
+        const isConfirmed = item.file.includes('작업중') || item.file.includes('파일 확인');
+
+        reservationItem.className = `reservation-item${isConfirmed ? ' confirmed-reservation' : ''}${isActive ? ' active-reservation' : ''}`;
+        top.className = 'reservation-top';
+        number.className = 'reservation-number';
+        type.className = 'reservation-type';
+        main.className = 'reservation-main';
+        file.className = `status-pill ${getPillClass(item.file)}`;
+        payment.className = `status-pill ${getPillClass(item.payment)}`;
+        note.className = 'reservation-note';
+
+        number.textContent = index + 1;
+        type.textContent = item.type;
+        file.textContent = item.file;
+        payment.textContent = item.payment;
+        note.textContent = item.note;
+
+        top.appendChild(number);
+        top.appendChild(type);
+        main.appendChild(file);
+        main.appendChild(payment);
+        reservationItem.appendChild(top);
+        reservationItem.appendChild(main);
+        reservationItem.appendChild(note);
+        reservationList.appendChild(reservationItem);
+      });
+    }
+
     function renderCalendar() {
       workCalendar.innerHTML = '';
 
@@ -1082,6 +1360,7 @@
     }
 
     renderCalendar();
+    renderReservations();
 
     const copyButton = document.getElementById('copyButton');
     const applicationForm = document.getElementById('applicationForm');
